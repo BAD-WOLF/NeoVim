@@ -45,12 +45,11 @@ Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
-Plug 'thinca/vim-quickrun'
 Plug 'thaerkh/vim-indentguides'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Shougo/neobundle.vim'
-NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'elvessousa/sobrio'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
@@ -108,7 +107,6 @@ call neobundle#begin(expand('~/.config/nvim/bundle/'))
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
@@ -126,7 +124,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_theme='dalton'
+let g:airline_theme='sobrio'
 
 " Required:
 filetype plugin indent on
@@ -193,6 +191,9 @@ set wildmenu
 
 " mouse support
 set mouse=a
+
+" split file
+set splitbelow
 
 set mousemodel=popup
 set t_Co=256
@@ -342,6 +343,15 @@ set autoread
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
+
+" runners
+let run_php_web="w | !php -S localhost:1234"
+let run_php_terminal="w | split | term php %"
+let run_python3="w | split | term python3 %"
+
+nnoremap <Leader>pw :<C-u>exec run_php_web<CR>
+nnoremap <Leader>pt :<C-u>exec run_php_terminal<CR>
+nnoremap <Leader>py :<C-u>exec run_python3<CR>
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
@@ -604,13 +614,13 @@ let g:WebDevIconsDefaultFileSymbolColor = s:blue " define a cor dos arquivos que
 
 " defina g:NERDTreeExtensionHighlightColor se você quiser uma cor personalizada em vez da padrão
 
-" let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs'] " habilitar destaque para arquivos .hbs e .lhs com cores padrão
+"let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs', 'css'] " habilitar destaque para arquivos .hbs e .lhs com cores padrão
 " let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " habilitar destaque para pastas dropbox e node_modules e arquivos favicon.ico com cores padrão
 
 " ° MITIGAÇÃO DE PROBLEMAS DE ATRASO
 " Alguns usuários estão relatando que sentem algum atraso ao usar este plugin. Existem maneiras de mitigar esse atraso. Uma maneira é desabilitar a maioria das extensões de destaque padrão. O código vai colorir mais de 80 extensões por padrão, mesmo se você não estiver usando a maioria delas. Uma maneira fácil de fazer isso é usar o modo de sintaxe limitado:
 
-" let g:NERDTreeLimitedSyntax = 1
+"let g:NERDTreeLimitedSyntax = 1
 
 " Esta configuração limitará as extensões usadas para estes:
 " .bmp, .c, .coffee, .cpp, .cs, .css, .erb, .go, .hs, .html, .java, .jpg, .js, .json, .jsx, .less, .lua, .markdown, .md, .php, .png, .pl, .py, .rb, .rs, .scala, .scss, .sh, .sql, .vim
@@ -625,4 +635,6 @@ let g:WebDevIconsDefaultFileSymbolColor = s:blue " define a cor dos arquivos que
 
 " Um usuário relatou que desabilitar o Cursorlinedestaque do NERDTree corrigiu o problema. Você pode descomentar a linha abaixo:
 
-" let g:NERDTreeHighlightCursorline = 0
+" let g:NERDTreeHighlightCursorline = 0:
+
+let NERDTreeShowHidden=1
