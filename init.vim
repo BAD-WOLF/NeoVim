@@ -1,4 +1,4 @@
-" vim-bootstrap 2022-05-26 11:05:33
+" vim-bootstrap 2022-05-26 15:53:35
 
 "*****************************************************************************
 "" Vim-Plug core
@@ -26,13 +26,13 @@ if !filereadable(vimplug_exists)
   let g:not_finish_vimplug = "yes"
 
   autocmd VimEnter * PlugInstall
-endif 
+endif
 
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 "*****************************************************************************
-" Plug install packages
+"" Plug install packages
 "*****************************************************************************
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -56,6 +56,8 @@ Plug 'dense-analysis/ale'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasr/molokai'
+Plug 'ryanoasis/vim-devicons'
+
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -107,6 +109,8 @@ call neobundle#begin(expand('~/.config/nvim/bundle/'))
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
@@ -115,19 +119,9 @@ call neobundle#end()
 
 " Required:
 filetype plugin indent on
-
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_theme='sobrio'
-
-" Required:
-filetype plugin indent on
 
 
 "*****************************************************************************
@@ -155,7 +149,6 @@ let mapleader=','
 set hidden
 
 "" Searching
-set inccommand=split
 set hlsearch
 set incsearch
 set ignorecase
@@ -191,9 +184,6 @@ set wildmenu
 
 " mouse support
 set mouse=a
-
-" split file
-set splitbelow
 
 set mousemodel=popup
 set t_Co=256
@@ -343,15 +333,6 @@ set autoread
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
-
-" runners
-let run_php_web="w | !php -S localhost:1234"
-let run_php_terminal="w | split | term php %"
-let run_python3="w | split | term python3 %"
-
-nnoremap <Leader>pw :<C-u>exec run_php_web<CR>
-nnoremap <Leader>pt :<C-u>exec run_php_terminal<CR>
-nnoremap <Leader>py :<C-u>exec run_python3<CR>
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
@@ -526,115 +507,3 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
-
-
-
-" Configurações do Vim IndentGuides
-
-let g:indentguides_spacechar = '¦'
-let g:indentguides_tabchar = '¦'
-
-" Fim das configurações do Vim IndentGuides
-
-"*****************************************************************************
-"" CONFIGURAÇÃO DE VISIBILIDADE DE ARQUIVOS E DIRETÓRIOS 
-"*****************************************************************************
-" matheusviaira137@gmail.com 2022-05-26 11:05:33
-
-" Desabilite os ícones de pastas e arquivos sem correspondência com a mesma cor de seus rótulos (normalmente verde e branco), se definido por este plug-in (pode ter sido definido por algum outro plug-in que você está usando).
-
-" let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
-" let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
-
-" Desativar destaque
-"
-" let g:NERDTreeDisableFileExtensionHighlight = 1
-" let g:NERDTreeDisableExactMatchHighlight = 1
-" let g:NERDTreeDisablePatternMatchHighlight = 1
-
-" Destaque o nome completo (não apenas ícones). Você precisa adicionar isso se não tiver vim-devicons e quiser destacar.
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
-" Realçar pastas usando correspondência exata
-let g:NERDTreeHighlightFolders = 1 " habilita o realce do ícone da pasta usando a correspondência exata
-let g:NERDTreeHighlightFoldersFullName = 1 " destaca o nome da pasta
-
-" Personalizando cores
-"" você pode adicionar essas cores ao seu .vimrc para ajudar a personalizar
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " esta linha é necessária para evitar erros
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " define a cor dos arquivos css para azul
-
-let g:NERDTreeExactMatchHighlightColor = {} " esta linha é necessária para evitar erros
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " define a cor dos arquivos .gitignore
-
-let g:NERDTreePatternMatchHighlightColor = {} " esta linha é necessária para evitar erros
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " define a cor dos arquivos que terminam com _spec.rb
-
-let g:WebDevIconsDefaultFolderSymbolColor = s:beige " define a cor das pastas que não correspondem a nenhuma regra
-let g:WebDevIconsDefaultFileSymbolColor = s:blue " define a cor dos arquivos que não correspondem a nenhuma regra
-
-" Desativar destaque para extensão de arquivo específica
-" Se você tiver vim-devicons, poderá personalizar seus ícones para cada tipo de arquivo.
-
-" let g:NERDTreeExtensionHighlightColor = {} " esta linha é necessária para evitar erros
-" let g:NERDTreeExtensionHighlightColor['css'] = '' " atribuí-lo a uma string vazia pulará o destaque
-
-" Desative o realce de extensões de arquivo incomuns (isso é uma boa ideia se você estiver com atraso ao rolar. Saiba mais sobre o atraso na próxima sessão.)
-
-"let g:NERDTreeLimitedSyntax = 1
-
-" Desative todo o realce de arquivo padrão (você pode usar isso para personalizar facilmente todas as regras de realce)
-
-" let g:NERDTreeSyntaxDisableDefaultExtensions = 1
-" let g:NERDTreeSyntaxDisableDefaultExactMatches = 1
-" let g:NERDTreeSyntaxDisableDefaultPatternMatches = 1
-
-" Personalize quais extensões de arquivo estão habilitadas (você só precisa disso se definir g:NERDTreeLimitedSyntax, g:NERDTreeSyntaxDisableDefaultExtensionsou g:NERDTreeSyntaxDisableDefaultExactMatches)
-
-" defina g:NERDTreeExtensionHighlightColor se você quiser uma cor personalizada em vez da padrão
-
-"let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs', 'css'] " habilitar destaque para arquivos .hbs e .lhs com cores padrão
-" let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " habilitar destaque para pastas dropbox e node_modules e arquivos favicon.ico com cores padrão
-
-" ° MITIGAÇÃO DE PROBLEMAS DE ATRASO
-" Alguns usuários estão relatando que sentem algum atraso ao usar este plugin. Existem maneiras de mitigar esse atraso. Uma maneira é desabilitar a maioria das extensões de destaque padrão. O código vai colorir mais de 80 extensões por padrão, mesmo se você não estiver usando a maioria delas. Uma maneira fácil de fazer isso é usar o modo de sintaxe limitado:
-
-"let g:NERDTreeLimitedSyntax = 1
-
-" Esta configuração limitará as extensões usadas para estes:
-" .bmp, .c, .coffee, .cpp, .cs, .css, .erb, .go, .hs, .html, .java, .jpg, .js, .json, .jsx, .less, .lua, .markdown, .md, .php, .png, .pl, .py, .rb, .rs, .scala, .scss, .sh, .sql, .vim
-
-" Se isso não resolver seu atraso ou não incluir as extensões que você normalmente usa, você pode escolher as extensões que deseja habilitar. Por exemplo, se você trabalha com C, php, ruby e javascript, você pode descomentar as linhas abaixa e adicionar mais extrações a lista: 
-
-" let g:NERDTreeSyntaxDisableDefaultExtensions = 1
-" let g:NERDTreeSyntaxDisableDefaultExactMatches = 1
-" let g:NERDTreeSyntaxDisableDefaultPatternMatches = 1
-" let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'cpp', 'php', 'rb', 'js', 'css', 'html'] " extensões habilitadas com cores padrão
-" let g:NERDTreeSyntaxEnabledExactMatches = ['node_modules', 'favicon.ico'] " correspondências exatas ativadas com cores padrão
-
-" Um usuário relatou que desabilitar o Cursorlinedestaque do NERDTree corrigiu o problema. Você pode descomentar a linha abaixo:
-
-" let g:NERDTreeHighlightCursorline = 0:
-
-let NERDTreeShowHidden=1
