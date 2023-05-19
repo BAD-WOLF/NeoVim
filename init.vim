@@ -44,6 +44,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
 Plug 'marlonfan/coc-phpls', {'branch': 'master'}
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -57,6 +58,7 @@ Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
+Plug 'docteurklein/php-getter-setter.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'editor-bootstrap/vim-bootstrap-updater'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
@@ -157,6 +159,9 @@ Plug 'c9s/perlomni.vim'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev -o'}
 Plug 'stephpy/vim-php-cs-fixer'
 
+" twig
+Plug 'nelsyeung/twig.vim'
+
 
 " python
 "" Python Bundle
@@ -218,13 +223,14 @@ Plug 'leafOfTree/vim-vue-plugin'
 
 "*****************************************************************************
 "*****************************************************************************
-Plug 'BAD-WOLF/neovimPlugin-'
+" Plug 'BAD-WOLF/neovimPlugin-'
 "" Include user's extra bundle
 if filereadable(expand("~/.config/nvim/local_bundles.vim"))
   source ~/.config/nvim/local_bundles.vim
 endif
 
 call plug#end()
+
 
 " Required:
 filetype plugin indent on
@@ -363,13 +369,14 @@ let g:airline_skip_empty_sections = 1
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
+cnoreabbrev Wq wq!
+cnoreabbrev Wa wa!
+cnoreabbrev wQ wq!
+cnoreabbrev WQ wq!
+cnoreabbrev wq wq!
+cnoreabbrev W w!
 cnoreabbrev Q q
-cnoreabbrev Qall qall
+cnoreabbrev Qall qall!
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -527,7 +534,6 @@ if has('unnamedplus')
 endif
 
 noremap YY "+y<CR>
-noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
 if has('macunix')
@@ -703,32 +709,52 @@ augroup END
 nmap <Leader>u :call phpactor#UseAdd()<CR>
 " Invoke the context menu
 nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+
 " Invoke the navigation menu
 nmap <Leader>nn :call phpactor#Navigate()<CR>
+
 " Goto definition of class or class member under the cursor
 nmap <Leader>oo :call phpactor#GotoDefinition()<CR>
 nmap <Leader>oh :call phpactor#GotoDefinition('hsplit')<CR>
 nmap <Leader>ov :call phpactor#GotoDefinition('vsplit')<CR>
 nmap <Leader>ot :call phpactor#GotoDefinition('tabnew')<CR>
+
 " Show brief information about the symbol under the cursor
 nmap <Leader>K :call phpactor#Hover()<CR>
+
 " Transform the classes in the current file
 nmap <Leader>tt :call phpactor#Transform()<CR>
+
 " Generate a new class (replacing the current file)
 nmap <Leader>cc :call phpactor#ClassNew()<CR>
+
 " Extract expression (normal mode)
 nmap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
+
 " Extract expression from selection
 vmap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
+
 " Extract method from selection
 vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+
+" php-getter-setter.vim
+" Insert Getter Setter
+nnoremap <leader>p :InsertBothGetterSetter<CR>
+
+" Insert Setter Only
+nnoremap <leader>s :InsertSetterOnly<CR>
+
+" Insert Getter Only
+nnoremap <leader>g :InsertGetterOnly<CR> 
+
+
 
 
 " python
 " vim-python
 augroup vimrc-python
   autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
       \ formatoptions+=croq softtabstop=4
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
@@ -779,7 +805,6 @@ let g:tagbar_type_ruby = {
 
 " RSpec.vim mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
