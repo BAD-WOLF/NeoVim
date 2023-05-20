@@ -195,7 +195,7 @@
 "          * Get name.
 "          * @return name
 "          */
-"        function getName() { return $this->name; }
+"        function getName() { return self::$name; }
 "
 "     This block of code can be produced by adding the following variable
 "     definition to your vimrc file.
@@ -206,7 +206,7 @@
 "           \ " * Get %varname%.\n" .
 "           \ " * @return %varname%\n" .
 "           \ " */\n" .
-"           \ "%public function %funcname%() { return $this->%varname%; }"
+"           \ "%public function %funcname%() { return self::$%varname%; }"
 "
 "     The defaults for these variables are defined in the script.  For
 "     both the getterTemplate and setterTemplate, there is a corresponding
@@ -279,9 +279,9 @@ else
     \ "     *\n" .
     \ "     * @return %varname%.\n" .
     \ "     */\n" .
-    \ "    public function %funcname%()\n" .
+    \ "    public static function %funcname%()\n" .
     \ "    {\n" .
-    \ "        return $this->%varname%;\n" .
+    \ "        return self::$%varname%;\n" .
     \ "    }"
 endif
 
@@ -297,9 +297,9 @@ else
   \ "     *\n" .
   \ "     * @param %varname% the value to set.\n" .
   \ "     */\n" .
-  \ "    public function %funcname%($%varname%)\n" .
+  \ "    public static function %funcname%($%varname%)\n" .
   \ "    {\n" .
-  \ "        $this->%varname% = $%varname%;\n" .
+  \ "        self::$%varname% = $%varname%;\n" .
   \ "    }"
 endif
 
