@@ -297,6 +297,7 @@ set number
 set relativenumber
 set inccommand=split
 
+
 let no_buffers_menu=1
 colorscheme molokai
 
@@ -936,3 +937,5 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+
+set splitbelow
